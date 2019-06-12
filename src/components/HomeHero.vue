@@ -4,8 +4,8 @@
         <div class="display-4 font-weight-black white--text text-xs-center">
             HEALTHY MEALS
         </div>
-        <div class="display-4 font-weight-black white--text text-xs-center mb-3">FOR YOUR PUG</div>
-            <div class="display-1 font-weight-bold white--text text-xs-center">Finally be a gourmet, meal-planning service for you pug!</div>
+        <div class="display-4 font-weight-black white--text text-xs-center mb-3">FIND YOUR MEALS</div>
+            <div class="display-1 font-weight-bold white--text text-xs-center">Finally be a gourmet, meal-planning app for your dietary needs.</div>
         <v-btn fab class="mt-5 brown darken-4">
             <v-icon large color="white">arrow_downward</v-icon>
         </v-btn>
