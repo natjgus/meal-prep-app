@@ -1,5 +1,8 @@
 # meal-prep
 
+This is a great app I built following along with Jennifer Bland at freecodecamp. Set up authentication via firebase, store with vuex, learned about vuetify, and much more. Thanks Jennifer! 
+
+
 ## Project setup
 ```
 npm install
