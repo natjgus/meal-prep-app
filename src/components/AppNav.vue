@@ -13,42 +13,56 @@
             </v-list>
         </v-navigation-drawer>
         <v-toolbar app color="brown darken-4" dark>
-                <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer=!drawer"></v-toolbar-side-icon>
-                <v-spacer class="hidden-md-and-up"></v-spacer>
-                <router-link to="/">
-                    <v-toolbar-title>{{appTitle}}</v-toolbar-title>
-                </router-link>
-                
-                <router-link to="/menu"><v-btn flat class="hidden-sm-and-down">Menu</v-btn></router-link>
-                <v-spacer class="hidden-sm-and-down"></v-spacer>
-                <router-link to="/sign-in">
+            <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer=!drawer"></v-toolbar-side-icon>
+            <v-spacer class="hidden-md-and-up"></v-spacer>
+            <router-link to="/">
+                <v-toolbar-title>{{appTitle}}</v-toolbar-title>
+            </router-link>
+            
+            <router-link to="/menu"><v-btn flat class="hidden-sm-and-down">Menu</v-btn></router-link>
+            <v-spacer class="hidden-sm-and-down"></v-spacer>
+            <div v-if="!isAuthenticated">
+                <router-link to="/sign-in" >
                     <v-btn class="hidden-sm-and-down" flat>SIGN IN</v-btn>
                 </router-link>
                 <router-link to="/join">
                     <v-btn class="hidden-sm-and-down" color="brown lighten-1">JOIN</v-btn>
                 </router-link>
-                
-            </v-toolbar>
+            </div>
+            <v-btn v-if="isAuthenticated" @click="logout">
+                Logout
+            </v-btn>
+        </v-toolbar>
 
 
         </span>
 </template>
 
 <script>
-export default {
-    name: 'AppNav',
-    data: function () {
-        return {
-            appTitle: 'Meal Prep',
-            drawer: false,
-            items: [
-                { title: 'Menu' },
-                { title: 'Sign In' },
-                { title: 'Join' }
-            ]
+    export default {
+        name: 'AppNav',
+        data: function () {
+            return {
+                appTitle: 'Meal Prep',
+                drawer: false,
+                items: [
+                    { title: 'Menu' },
+                    { title: 'Sign In' },
+                    { title: 'Join' }
+                ]
+            }
+        },
+        computed: {
+            isAuthenticated: function(){
+                return this.$store.getters.isAuthenticated;
+            }
+        },
+        methods: {
+            logout () {
+                this.$store.dispatch('userSignOut');
+            }
         }
     }
-}
 </script>
 
 <style scoped>

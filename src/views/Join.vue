@@ -51,20 +51,33 @@ export default {
     name: 'Join',
     data: () => {
         return {
-            email: null,
-            password: null,
-            emailRules: null,
-            passwordRules: null,
-            valid: true,
+            email: '',
+            password: '',
+            emailRules: [
+            v => !!v || 'E-mail is required',
+            v => /.+@.+/.test(v) || 'E-mail must be valid'
+            ],
+            passwordRules: [
+            v => !!v || 'Password is required',
+            v =>
+                v.length >= 6 && /\d/.test(v) ||
+                'Password must be greater than 6 characters and contain a number'
+            ],
+            valid: false,
         }
     },
     methods: {
-        submit: () => {
-
+        submit() {
+            if (this.$refs.form.validate()) {
+                this.$store.dispatch('userJoin', {
+                    email: this.email,
+                    password: this.password
+                });
+            }
         }
     }
-
 }
+
 </script>
 
 <style>

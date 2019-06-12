@@ -21,7 +21,7 @@
                             </li>
                         </ul>
                     </v-card-text>
-                    <v-card-actions>
+                    <v-card-actions @click="orderRecipe(recipeItem)">
                         <v-btn block dark>Order Here!</v-btn>
                     </v-card-actions>
                 </v-card>
@@ -31,15 +31,28 @@
 </template>
 
 <script>
-export default {
-    name: 'RecipeDisplay',
-
-    computed: {
-        getRecipes () {
-            return this.$store.state.recipes;
+    import router from '@/router'
+    export default {
+        name: 'RecipeDisplay',
+        computed: {
+            getRecipes () {
+                return this.$store.state.recipes;
+            },
+            isAuthenticated () {
+                return this.$store.getters.isAuthenticated;
+            }
+        },
+        methods: {
+            orderRecipe(recipeItem) {
+                if (this.isAuthenticated) {
+                    this.$store.dispatch('addRecipe', recipeItem);
+                }
+                else {
+                    router.push('/sign-in');
+                }
+            }
         }
     }
-}
 </script>
 
 <style>
