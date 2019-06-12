@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-lg>
+    <v-container fluid grid-list-lg>
         <v-layout row>
             <v-flex xs12 class="text-xs-center display-1 font-weight-black my-5">Available Plans</v-flex>
         </v-layout>
@@ -19,10 +19,13 @@
                     <v-card-title primary-title>
                         <div>
                             <h3 class="headline mb-0">Keto</h3>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mauris felis, varius rutrum massa a, dignissim ornare dui. Cras eget velit eu dui tristique lobortis sit amet vel tellus.
+                            <div>The Keto diet is a high-fat, adequate-protein, low-carbohydrate diet. The diet forces the body to burn fats rather than carbohydrates by putting the body into ketosis.
                             </div>
                         </div>
                     </v-card-title>
+                    <v-card-actions v-if="['menu'].includes($route.name)">
+                        <v-btn outline block color="green" @click="showRecipes('keto')">Select This Plan</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
 
@@ -40,10 +43,13 @@
                     <v-card-title primary-title>
                         <div>
                             <h3 class="headline mb-0">Paleo</h3>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mauris felis, varius rutrum massa a, dignissim ornare dui. Cras eget velit eu dui tristique lobortis sit amet vel tellus.
+                            <div>The Paleo diet requires the sole or predominant consumption of foods presumed to have been the only foods available to or consumed by humans during the Paleolithic era.
                             </div>
                         </div>
                     </v-card-title>
+                    <v-card-actions v-if="['menu'].includes($route.name)">
+                        <v-btn outline block color="green" @click="showRecipes('paleo')">Select This Plan</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
 
@@ -61,21 +67,29 @@
                     <v-card-title primary-title>
                         <div>
                             <h3 class="headline mb-0">Vegan</h3>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam mauris felis, varius rutrum massa a, dignissim ornare dui. Cras eget velit eu dui tristique lobortis sit amet vel tellus.
+                            <div>The vegan diet abstains from the use of animal products. The vegan diet does not consume meat, diary products, eggs or any all other animal-derived ingredients.
                             </div>
                         </div>
                     </v-card-title>
+                    <v-card-actions v-if="['menu'].includes($route.name)">
+                        <v-btn outline block color="green" @click="showRecipes('vegan')">Select This Plan</v-btn>
+                    </v-card-actions>
                 </v-card>
-            </v-flex>
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 
 <script>
-export default {
-    name: "HomePlans"
-}
+    // import store from '../store';
+    export default {
+        name: "HomePlans",
+        methods: {
+            showRecipes(plan)  {
+                this.$store.dispatch('getRecipes', plan);
+            }
+        }
+    }
 </script>
 
 <style>
