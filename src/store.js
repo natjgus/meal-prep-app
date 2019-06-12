@@ -11,7 +11,8 @@ export default new Vuex.Store({
     recipes: [],
     user: null,
     isAuthenticated: false,
-    apiUrl: 'https://api.edamam.com/search'
+    apiUrl: 'https://api.edamam.com/search',
+    userRecipes: []
   },
   mutations: {
     setRecipes (state, payload) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     setIsAuthenticated (state, payload) {
       state.isAuthenticated = payload;
+    },
+    setUserRecipes (state, payload) {
+      state.userRecipes = payload;
     }
   },
   getters: {
@@ -93,8 +97,22 @@ export default new Vuex.Store({
           router.push('/');
         });
     },
+    // to add a recipe we need the state to get the current user and their uid
     addRecipe ( { state }, payload) {
-      console.log(payload)
+      firebase
+        .database()
+        .ref('users')
+        .child(state.user.user.uid)
+        .push(payload.recipe.label);
+    },
+    getUserRecipes( {state, commit}) {
+      return firebase
+        .database()
+        //we want to search out the database for the specific user uid (which is in our user state object)
+        .ref('users/' + state.user.user.uid)
+          .once('value', snapshot => {
+            commit('setUserRecipes', snapshot.val());
+          });
     }
   }
 })

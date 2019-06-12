@@ -29,9 +29,14 @@
                     <v-btn class="hidden-sm-and-down" color="brown lighten-1">JOIN</v-btn>
                 </router-link>
             </div>
-            <v-btn v-if="isAuthenticated" @click="logout">
-                Logout
-            </v-btn>
+            <div v-if="isAuthenticated">
+                <router-link to="/about">
+                    <v-btn class="hidden-sm-and-down" color="brown lighten-1">PROFILE</v-btn>
+                </router-link>
+                <v-btn @click="logout">
+                    Logout
+                </v-btn>
+            </div>
         </v-toolbar>
 
 
